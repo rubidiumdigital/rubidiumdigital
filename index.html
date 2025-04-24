@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rubidium</title>
+  <title>test</title>
   <style>
     /* Reset and base styles */
     * {
@@ -17,9 +17,19 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode {
       background-color: black;
       background-image: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120, 119, 198, 0.3), rgba(255, 255, 255, 0));
-      color: white;
+    }
+
+    body.light-mode {
+      background-color: #f8f9fa;
+      background-image: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120, 119, 198, 0.15), rgba(255, 255, 255, 0));
+      color: #1f2937;
     }
 
     /* Header styles */
@@ -29,8 +39,18 @@
       left: 0;
       right: 0;
       z-index: 50;
+      transition: all 0.3s ease;
+    }
+
+    header.dark-mode {
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+    }
+
+    header.light-mode {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      background-color: rgba(248, 249, 250, 0.7);
       backdrop-filter: blur(16px);
     }
 
@@ -55,7 +75,7 @@
     }
 
     .logo-image {
-      height: 3.5rem; /* Increased from 2.5rem to 3.5rem */
+      height: 3.5rem;
       width: auto;
       transition: opacity 0.3s;
     }
@@ -72,14 +92,25 @@
 
     nav a {
       font-size: 0.875rem;
-      font-weight: bold; /* Added bold text */
-      color: rgba(156, 163, 175, 1);
+      font-weight: bold;
       text-decoration: none;
       transition: color 0.3s;
     }
 
-    nav a:hover {
+    nav.dark-mode a {
+      color: rgba(156, 163, 175, 1);
+    }
+
+    nav.dark-mode a:hover {
       color: white;
+    }
+
+    nav.light-mode a {
+      color: rgba(55, 65, 81, 0.8);
+    }
+
+    nav.light-mode a:hover {
+      color: #1f2937;
     }
 
     .header-actions {
@@ -143,7 +174,15 @@
 
     .toggle-label {
       font-size: 0.875rem;
+      transition: color 0.3s ease;
+    }
+
+    .toggle-label.dark-mode {
       color: rgba(156, 163, 175, 1);
+    }
+
+    .toggle-label.light-mode {
+      color: rgba(55, 65, 81, 0.8);
     }
 
     /* Button styles */
@@ -162,15 +201,26 @@
       border: none;
     }
 
-    .btn-outline {
+    .btn-outline.dark-mode {
       border: 1px solid rgba(31, 41, 55, 1);
       background-color: rgba(0, 0, 0, 0.5);
       color: rgba(209, 213, 219, 1);
       backdrop-filter: blur(4px);
     }
 
-    .btn-outline:hover {
+    .btn-outline.dark-mode:hover {
       background-color: rgba(31, 41, 55, 1);
+    }
+
+    .btn-outline.light-mode {
+      border: 1px solid rgba(209, 213, 219, 1);
+      background-color: rgba(255, 255, 255, 0.5);
+      color: rgba(55, 65, 81, 1);
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-outline.light-mode:hover {
+      background-color: rgba(209, 213, 219, 0.5);
     }
 
     /* Responsive */
@@ -192,14 +242,14 @@
     }
   </style>
 </head>
-<body>
+<body class="dark-mode">
   <!-- Header -->
-  <header>
+  <header class="dark-mode">
     <div class="container header-container">
       <a href="#" class="logo-link">
         <img src="toplogo.png" alt="Logo" class="logo-image">
       </a>
-      <nav>
+      <nav class="dark-mode">
         <a href="#">Home</a>
         <a href="#">About</a>
         <a href="#">Requests</a>
@@ -207,24 +257,62 @@
       <div class="header-actions">
         <div class="toggle-container">
           <label class="switch">
-            <input type="checkbox" id="demo-mode-toggle" checked>
+            <input type="checkbox" id="light-mode-toggle" checked>
             <span class="slider"></span>
           </label>
-          <label for="demo-mode-toggle" class="toggle-label">Demo Mode</label>
+          <label for="light-mode-toggle" class="toggle-label dark-mode">Light Mode</label>
         </div>
-        <button class="btn btn-outline">Sign In</button>
+        <button class="btn btn-outline dark-mode">Sign In</button>
       </div>
     </div>
   </header>
 
   <script>
-    // Simple toggle functionality
-    const demoModeToggle = document.getElementById('demo-mode-toggle');
-    let demoMode = true;
+    // Theme toggle functionality
+    const lightModeToggle = document.getElementById('light-mode-toggle');
+    const body = document.body;
+    const header = document.querySelector('header');
+    const nav = document.querySelector('nav');
+    const toggleLabel = document.querySelector('.toggle-label');
+    const signInBtn = document.querySelector('.btn-outline');
     
-    demoModeToggle.addEventListener('change', () => {
-      demoMode = demoModeToggle.checked;
-    });
+    // Initialize based on toggle state
+    let isLightMode = lightModeToggle.checked;
+    
+    // Function to toggle between light and dark mode
+    function toggleTheme() {
+      isLightMode = lightModeToggle.checked;
+      
+      if (isLightMode) {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        header.classList.remove('light-mode');
+        header.classList.add('dark-mode');
+        nav.classList.remove('light-mode');
+        nav.classList.add('dark-mode');
+        toggleLabel.classList.remove('light-mode');
+        toggleLabel.classList.add('dark-mode');
+        signInBtn.classList.remove('light-mode');
+        signInBtn.classList.add('dark-mode');
+      } else {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        header.classList.remove('dark-mode');
+        header.classList.add('light-mode');
+        nav.classList.remove('dark-mode');
+        nav.classList.add('light-mode');
+        toggleLabel.classList.remove('dark-mode');
+        toggleLabel.classList.add('light-mode');
+        signInBtn.classList.remove('dark-mode');
+        signInBtn.classList.add('light-mode');
+      }
+    }
+    
+    // Set initial state
+    toggleTheme();
+    
+    // Add event listener for toggle changes
+    lightModeToggle.addEventListener('change', toggleTheme);
   </script>
 </body>
 </html>
