@@ -72,15 +72,25 @@
       align-items: center;
       margin-right: 1.5rem;
       text-decoration: none;
-      height: 2.5rem; /* Reduced height for logo container */
+      height: 2.75rem; /* Slightly increased base height for logo container */
+      transition: all 0.3s ease;
     }
 
     .logo-image {
-      height: 2.5rem; /* Smaller fixed height for logo */
+      height: 100%; /* Use full height of container */
       width: auto;
       max-height: 100%;
-      transition: opacity 0.3s;
+      transition: all 0.3s ease;
       object-fit: contain;
+    }
+
+    /* Dark mode logo is slightly larger */
+    body.dark-mode .logo-link {
+      height: 2.85rem; /* Slightly larger in dark mode */
+    }
+
+    body.light-mode .logo-link {
+      height: 2.5rem; /* Original size in light mode */
     }
 
     .logo-link:hover .logo-image {
@@ -279,6 +289,7 @@
     const toggleLabel = document.querySelector('.toggle-label');
     const signInBtn = document.querySelector('.btn-outline');
     const headerLogo = document.getElementById('header-logo');
+    const logoLink = document.querySelector('.logo-link');
     
     // Initialize based on toggle state
     let isLightMode = lightModeToggle.checked;
