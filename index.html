@@ -72,12 +72,15 @@
       align-items: center;
       margin-right: 1.5rem;
       text-decoration: none;
+      height: 3.5rem; /* Fixed height container for the logo */
     }
 
     .logo-image {
-      height: 3.5rem;
+      height: 3.5rem; /* Fixed height for logo */
       width: auto;
+      max-height: 100%;
       transition: opacity 0.3s;
+      object-fit: contain; /* Ensures the logo maintains its aspect ratio */
     }
 
     .logo-link:hover .logo-image {
@@ -276,6 +279,10 @@
     const toggleLabel = document.querySelector('.toggle-label');
     const signInBtn = document.querySelector('.btn-outline');
     const headerLogo = document.getElementById('header-logo');
+    
+    // Preload the light mode logo to ensure consistent size
+    const lightLogo = new Image();
+    lightLogo.src = "ui/toplogolight.png";
     
     // Initialize based on toggle state
     let isLightMode = lightModeToggle.checked;
