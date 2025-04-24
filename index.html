@@ -72,15 +72,15 @@
       align-items: center;
       margin-right: 1.5rem;
       text-decoration: none;
-      height: 3.5rem; /* Fixed height container for the logo */
-      width: auto;
+      height: 2.5rem; /* Reduced height for logo container */
     }
 
     .logo-image {
-      height: 3.5rem; /* Fixed height for logo */
+      height: 2.5rem; /* Smaller fixed height for logo */
       width: auto;
+      max-height: 100%;
       transition: opacity 0.3s;
-      object-fit: contain; /* Ensures the logo maintains its aspect ratio */
+      object-fit: contain;
     }
 
     .logo-link:hover .logo-image {
@@ -250,7 +250,7 @@
   <header class="dark-mode">
     <div class="container header-container">
       <a href="#" class="logo-link">
-        <img src="/api/placeholder/140/56" alt="Logo" class="logo-image" id="header-logo">
+        <img src="/api/placeholder/100/40" alt="Logo" class="logo-image" id="header-logo">
       </a>
       <nav class="dark-mode">
         <a href="#">Home</a>
@@ -280,30 +280,8 @@
     const signInBtn = document.querySelector('.btn-outline');
     const headerLogo = document.getElementById('header-logo');
     
-    // Pre-load both logo images to ensure consistent size
-    const darkLogo = new Image();
-    darkLogo.src = "ui/toplogo.png";
-    
-    const lightLogo = new Image();
-    lightLogo.src = "ui/toplogolight.png";
-    
-    // Function to ensure consistent logo size
-    function setConsistentLogoSize() {
-      // Set a fixed size for both logos based on the dark logo's dimensions
-      const logoWidth = darkLogo.naturalWidth;
-      const logoHeight = darkLogo.naturalHeight;
-      
-      // Apply the same dimensions to both logos
-      headerLogo.style.width = `${logoWidth}px`;
-      headerLogo.style.height = `${logoHeight}px`;
-    }
-    
-    // Wait for the dark logo to load to get its dimensions
-    darkLogo.onload = function() {
-      setConsistentLogoSize();
-      // Now that we have the dimensions, set the initial logo
-      headerLogo.src = darkLogo.src;
-    };
+    // Initialize based on toggle state
+    let isLightMode = lightModeToggle.checked;
     
     // Function to toggle between light and dark mode
     function toggleTheme() {
@@ -320,7 +298,7 @@
         toggleLabel.classList.add('dark-mode');
         signInBtn.classList.remove('light-mode');
         signInBtn.classList.add('dark-mode');
-        headerLogo.src = darkLogo.src; // Use the preloaded dark logo
+        headerLogo.src = "ui/toplogo.png";
         toggleLabel.textContent = "Light Mode";
       } else {
         body.classList.remove('dark-mode');
@@ -333,23 +311,13 @@
         toggleLabel.classList.add('light-mode');
         signInBtn.classList.remove('dark-mode');
         signInBtn.classList.add('light-mode');
-        headerLogo.src = lightLogo.src; // Use the preloaded light logo
+        headerLogo.src = "ui/toplogolight.png";
         toggleLabel.textContent = "Dark Mode";
       }
     }
     
-    // Set initial state once logos are loaded
-    if (darkLogo.complete && lightLogo.complete) {
-      setConsistentLogoSize();
-      toggleTheme();
-    } else {
-      lightLogo.onload = function() {
-        if (darkLogo.complete) {
-          setConsistentLogoSize();
-          toggleTheme();
-        }
-      };
-    }
+    // Set initial state
+    toggleTheme();
     
     // Add event listener for toggle changes
     lightModeToggle.addEventListener('change', toggleTheme);
