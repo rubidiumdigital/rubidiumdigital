@@ -72,24 +72,29 @@
       align-items: center;
       margin-right: 1.5rem;
       text-decoration: none;
-      height: 2.75rem; /* Slightly increased base height for logo container */
       transition: all 0.3s ease;
     }
 
     .logo-image {
-      height: 100%; /* Use full height of container */
       width: auto;
-      max-height: 100%;
       transition: all 0.3s ease;
       object-fit: contain;
     }
 
-    /* Dark mode logo is slightly larger */
+    /* Dark mode logo is noticeably larger */
     body.dark-mode .logo-link {
-      height: 2.85rem; /* Slightly larger in dark mode */
+      height: 3.25rem; /* Much larger in dark mode */
+    }
+
+    body.dark-mode .logo-image {
+      height: 3.25rem; /* Make sure image takes full size */
     }
 
     body.light-mode .logo-link {
+      height: 2.5rem; /* Original size in light mode */
+    }
+
+    body.light-mode .logo-image {
       height: 2.5rem; /* Original size in light mode */
     }
 
