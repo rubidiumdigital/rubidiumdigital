@@ -190,17 +190,12 @@
       transform: translateX(16px);
     }
 
-    .toggle-label {
-      font-size: 0.875rem;
-      transition: color 0.3s ease;
-    }
-
-    .toggle-label.dark-mode {
-      color: rgba(156, 163, 175, 1);
-    }
-
-    .toggle-label.light-mode {
-      color: rgba(55, 65, 81, 0.8);
+    /* Mode icon styles */
+    .mode-icon {
+      height: 20px;
+      width: 20px;
+      transition: all 0.3s ease;
+      object-fit: contain;
     }
 
     /* Button styles */
@@ -278,7 +273,7 @@
             <input type="checkbox" id="light-mode-toggle" checked>
             <span class="slider"></span>
           </label>
-          <label for="light-mode-toggle" class="toggle-label dark-mode">Light Mode</label>
+          <img src="ui/ldmodeicon.png" alt="Theme Mode" class="mode-icon" id="mode-icon">
         </div>
         <button class="btn btn-outline dark-mode">Sign In</button>
       </div>
@@ -291,10 +286,10 @@
     const body = document.body;
     const header = document.querySelector('header');
     const nav = document.querySelector('nav');
-    const toggleLabel = document.querySelector('.toggle-label');
     const signInBtn = document.querySelector('.btn-outline');
     const headerLogo = document.getElementById('header-logo');
     const logoLink = document.querySelector('.logo-link');
+    const modeIcon = document.getElementById('mode-icon');
     
     // Initialize based on toggle state
     let isLightMode = lightModeToggle.checked;
@@ -310,12 +305,10 @@
         header.classList.add('dark-mode');
         nav.classList.remove('light-mode');
         nav.classList.add('dark-mode');
-        toggleLabel.classList.remove('light-mode');
-        toggleLabel.classList.add('dark-mode');
         signInBtn.classList.remove('light-mode');
         signInBtn.classList.add('dark-mode');
         headerLogo.src = "ui/toplogo.png";
-        toggleLabel.textContent = "Light Mode";
+        modeIcon.src = "ui/ldmodeicon.png"; // Updated path to use ui folder
       } else {
         body.classList.remove('dark-mode');
         body.classList.add('light-mode');
@@ -323,12 +316,10 @@
         header.classList.add('light-mode');
         nav.classList.remove('dark-mode');
         nav.classList.add('light-mode');
-        toggleLabel.classList.remove('dark-mode');
-        toggleLabel.classList.add('light-mode');
         signInBtn.classList.remove('dark-mode');
         signInBtn.classList.add('light-mode');
         headerLogo.src = "ui/toplogolight.png";
-        toggleLabel.textContent = "Dark Mode";
+        modeIcon.src = "ui/ldmodeicon.png"; // Updated path to use ui folder
       }
     }
     
