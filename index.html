@@ -75,28 +75,25 @@
       transition: all 0.3s ease;
     }
 
+    /* Fix the size for both modes to prevent popping animation */
+    .logo-link {
+      height: 3.25rem; /* Set to the larger size for both modes */
+    }
+
     .logo-image {
-      width: auto;
       transition: all 0.3s ease;
       object-fit: contain;
+      height: 3.25rem; /* Set to the larger size for both modes */
+      width: auto;
     }
 
-    /* Dark mode logo is noticeably larger */
-    body.dark-mode .logo-link {
-      height: 3.25rem; /* Much larger in dark mode */
-    }
-
-    body.dark-mode .logo-image {
-      height: 3.25rem; /* Make sure image takes full size */
-    }
-
-    body.light-mode .logo-link {
-      height: 2.5rem; /* Original size in light mode */
-    }
-
+    /* Remove the mode-specific size changes that were causing "popping" */
+    /* body.dark-mode .logo-link,
+    body.dark-mode .logo-image,
+    body.light-mode .logo-link,
     body.light-mode .logo-image {
-      height: 2.5rem; /* Original size in light mode */
-    }
+      height values removed to prevent size changes
+    } */
 
     .logo-link:hover .logo-image {
       opacity: 0.9;
@@ -296,6 +293,24 @@
     const headerLogo = document.getElementById('header-logo');
     const logoLink = document.querySelector('.logo-link');
     const modeIcon = document.getElementById('mode-icon');
+    
+    // Preload images to prevent flashing during transitions
+    const preloadImages = () => {
+      const topLogo = new Image();
+      topLogo.src = "ui/toplogo.png";
+      
+      const topLogoLight = new Image();
+      topLogoLight.src = "ui/toplogolight.png";
+      
+      const darkModeIcon = new Image();
+      darkModeIcon.src = "ui/ldmodeicon.png";
+      
+      const lightModeIcon = new Image();
+      lightModeIcon.src = "ui/ldmodeiconlight.png";
+    };
+    
+    // Preload images when page loads
+    preloadImages();
     
     // Initialize based on toggle state
     let isLightMode = lightModeToggle.checked;
