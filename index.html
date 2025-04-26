@@ -73,27 +73,15 @@
       margin-right: 1.5rem;
       text-decoration: none;
       transition: all 0.3s ease;
-    }
-
-    /* Fix the size for both modes to prevent popping animation */
-    .logo-link {
-      height: 3.25rem; /* Set to the larger size for both modes */
+      height: 2.5rem; /* Set to the smaller size for consistency */
     }
 
     .logo-image {
       transition: all 0.3s ease;
       object-fit: contain;
-      height: 3.25rem; /* Set to the larger size for both modes */
+      height: 2.5rem; /* Set to the smaller size for consistency */
       width: auto;
     }
-
-    /* Remove the mode-specific size changes that were causing "popping" */
-    /* body.dark-mode .logo-link,
-    body.dark-mode .logo-image,
-    body.light-mode .logo-link,
-    body.light-mode .logo-image {
-      height values removed to prevent size changes
-    } */
 
     .logo-link:hover .logo-image {
       opacity: 0.9;
