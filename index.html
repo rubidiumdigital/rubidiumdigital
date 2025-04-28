@@ -67,38 +67,30 @@
       align-items: center;
     }
 
-    /* Fixed logo-link to prevent layout issues */
     .logo-link {
       display: flex;
       align-items: center;
       margin-right: 1.5rem;
       text-decoration: none;
       transition: all 0.3s ease;
-      height: 3.5rem;
-      /* Use a fixed width to prevent layout shifts */
-      min-width: 100px;
-      position: relative;
+      height: 3.5rem; /* Increased from 2.5rem for dark mode */
     }
 
-    /* Base logo image style - Using transform for centering */
+    /* Base logo image style */
     .logo-image {
       transition: all 0.3s ease;
       object-fit: contain;
       width: auto;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 0;
     }
 
-    /* Dark mode specific logo size */
+    /* Dark mode specific logo size - MODIFIED to make toplogo.png slightly larger */
     body.dark-mode .logo-image {
-      height: 2.8rem;
+      height: 2.8rem; /* Increased from 2.5rem to make it slightly larger */
     }
 
-    /* Light mode specific logo size */
+    /* Light mode specific logo size - MODIFIED to make toplogolight.png slightly larger */
     body.light-mode .logo-image {
-      height: 2.3rem;
+      height: 2.3rem; /* Increased from 2rem to make it slightly larger */
     }
 
     .logo-link:hover .logo-image {
@@ -221,8 +213,6 @@
       padding: 0 1.5rem;
       cursor: pointer;
       border: none;
-      /* Ensure buttons are not clipped */
-      z-index: 1;
     }
 
     .btn-outline.dark-mode {
@@ -336,8 +326,6 @@
         nav.classList.add('dark-mode');
         signInBtn.classList.remove('light-mode');
         signInBtn.classList.add('dark-mode');
-        
-        // Simple approach - just change the src
         headerLogo.src = "ui/toplogo.png";
         modeIcon.src = "ui/ldmodeicon.png"; // Dark mode icon
       } else {
@@ -349,8 +337,6 @@
         nav.classList.add('light-mode');
         signInBtn.classList.remove('dark-mode');
         signInBtn.classList.add('light-mode');
-        
-        // Simple approach - just change the src
         headerLogo.src = "ui/toplogolight.png";
         modeIcon.src = "ui/ldmodeiconlight.png"; // Light mode icon
       }
