@@ -67,29 +67,28 @@
       align-items: center;
     }
 
-    /* Modified logo-link to have fixed height and center alignment */
+    /* Fixed logo-link to prevent layout issues */
     .logo-link {
       display: flex;
       align-items: center;
-      justify-content: center;
       margin-right: 1.5rem;
       text-decoration: none;
       transition: all 0.3s ease;
       height: 3.5rem;
-      /* Fixed height container to prevent layout shift */
+      /* Use a fixed width to prevent layout shifts */
+      min-width: 100px;
       position: relative;
-      width: auto;
     }
 
-    /* Base logo image style - Modified to use absolute positioning */
+    /* Base logo image style - Using transform for centering */
     .logo-image {
       transition: all 0.3s ease;
       object-fit: contain;
       width: auto;
       position: absolute;
       top: 50%;
-      left: 0;
       transform: translateY(-50%);
+      left: 0;
     }
 
     /* Dark mode specific logo size */
@@ -222,6 +221,8 @@
       padding: 0 1.5rem;
       cursor: pointer;
       border: none;
+      /* Ensure buttons are not clipped */
+      z-index: 1;
     }
 
     .btn-outline.dark-mode {
@@ -336,17 +337,8 @@
         signInBtn.classList.remove('light-mode');
         signInBtn.classList.add('dark-mode');
         
-        // Create new image and set it up before replacing the old one
-        const newLogo = new Image();
-        newLogo.src = "ui/toplogo.png";
-        newLogo.alt = "Logo";
-        newLogo.className = "logo-image";
-        newLogo.id = "header-logo";
-        newLogo.onload = function() {
-          // Replace the old logo with the new one
-          headerLogo.parentNode.replaceChild(newLogo, headerLogo);
-        };
-        
+        // Simple approach - just change the src
+        headerLogo.src = "ui/toplogo.png";
         modeIcon.src = "ui/ldmodeicon.png"; // Dark mode icon
       } else {
         body.classList.remove('dark-mode');
@@ -358,17 +350,8 @@
         signInBtn.classList.remove('dark-mode');
         signInBtn.classList.add('light-mode');
         
-        // Create new image and set it up before replacing the old one
-        const newLogo = new Image();
-        newLogo.src = "ui/toplogolight.png";
-        newLogo.alt = "Logo";
-        newLogo.className = "logo-image";
-        newLogo.id = "header-logo";
-        newLogo.onload = function() {
-          // Replace the old logo with the new one
-          headerLogo.parentNode.replaceChild(newLogo, headerLogo);
-        };
-        
+        // Simple approach - just change the src
+        headerLogo.src = "ui/toplogolight.png";
         modeIcon.src = "ui/ldmodeiconlight.png"; // Light mode icon
       }
     }
