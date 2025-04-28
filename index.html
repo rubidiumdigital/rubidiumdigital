@@ -208,11 +208,12 @@
       transition: all 0.3s;
       position: relative;
       font-size: 0.875rem;
-      height: 3rem;
+      height: 2.5rem; /* Reduced from 3rem to make buttons smaller */
       border-radius: 0.5rem;
-      padding: 0 1.5rem;
+      padding: 0 1.25rem; /* Reduced from 1.5rem to make buttons smaller */
       cursor: pointer;
       border: none;
+      margin-right: 0.5rem; /* Add spacing between buttons */
     }
 
     .btn-outline.dark-mode {
@@ -266,9 +267,13 @@
       <nav class="dark-mode">
         <a href="#">Home</a>
         <a href="#">About</a>
-        <a href="#">Requests</a>
+        <a href="#">Contact</a>
       </nav>
       <div class="header-actions">
+        <div class="buttons-container">
+          <button class="btn btn-outline dark-mode">Sign In</button>
+          <button class="btn btn-outline dark-mode">Sign Up</button>
+        </div>
         <div class="toggle-container">
           <label class="switch">
             <input type="checkbox" id="light-mode-toggle" checked>
@@ -276,7 +281,6 @@
           </label>
           <img src="ui/ldmodeicon.png" alt="Theme Mode" class="mode-icon" id="mode-icon">
         </div>
-        <button class="btn btn-outline dark-mode">Sign In</button>
       </div>
     </div>
   </header>
@@ -288,6 +292,7 @@
     const header = document.querySelector('header');
     const nav = document.querySelector('nav');
     const signInBtn = document.querySelector('.btn-outline');
+    const signUpBtn = document.querySelectorAll('.btn-outline')[1];
     const headerLogo = document.getElementById('header-logo');
     const logoLink = document.querySelector('.logo-link');
     const modeIcon = document.getElementById('mode-icon');
@@ -326,6 +331,8 @@
         nav.classList.add('dark-mode');
         signInBtn.classList.remove('light-mode');
         signInBtn.classList.add('dark-mode');
+        signUpBtn.classList.remove('light-mode');
+        signUpBtn.classList.add('dark-mode');
         headerLogo.src = "ui/toplogo.png";
         modeIcon.src = "ui/ldmodeicon.png"; // Dark mode icon
       } else {
@@ -337,6 +344,8 @@
         nav.classList.add('light-mode');
         signInBtn.classList.remove('dark-mode');
         signInBtn.classList.add('light-mode');
+        signUpBtn.classList.remove('dark-mode');
+        signUpBtn.classList.add('light-mode');
         headerLogo.src = "ui/toplogolight.png";
         modeIcon.src = "ui/ldmodeiconlight.png"; // Light mode icon
       }
