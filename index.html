@@ -67,30 +67,39 @@
       align-items: center;
     }
 
+    /* Modified logo-link to have fixed height and center alignment */
     .logo-link {
       display: flex;
       align-items: center;
+      justify-content: center;
       margin-right: 1.5rem;
       text-decoration: none;
       transition: all 0.3s ease;
-      height: 3.5rem; /* Increased from 2.5rem for dark mode */
+      height: 3.5rem;
+      /* Fixed height container to prevent layout shift */
+      position: relative;
+      width: auto;
     }
 
-    /* Base logo image style */
+    /* Base logo image style - Modified to use absolute positioning */
     .logo-image {
       transition: all 0.3s ease;
       object-fit: contain;
       width: auto;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
     }
 
-    /* Dark mode specific logo size - MODIFIED to make toplogo.png slightly larger */
+    /* Dark mode specific logo size */
     body.dark-mode .logo-image {
-      height: 2.8rem; /* Increased from 2.5rem to make it slightly larger */
+      height: 2.8rem;
     }
 
-    /* Light mode specific logo size - MODIFIED to make toplogolight.png slightly larger */
+    /* Light mode specific logo size */
     body.light-mode .logo-image {
-      height: 2.3rem; /* Increased from 2rem to make it slightly larger */
+      height: 2.3rem;
     }
 
     .logo-link:hover .logo-image {
@@ -326,7 +335,18 @@
         nav.classList.add('dark-mode');
         signInBtn.classList.remove('light-mode');
         signInBtn.classList.add('dark-mode');
-        headerLogo.src = "ui/toplogo.png";
+        
+        // Create new image and set it up before replacing the old one
+        const newLogo = new Image();
+        newLogo.src = "ui/toplogo.png";
+        newLogo.alt = "Logo";
+        newLogo.className = "logo-image";
+        newLogo.id = "header-logo";
+        newLogo.onload = function() {
+          // Replace the old logo with the new one
+          headerLogo.parentNode.replaceChild(newLogo, headerLogo);
+        };
+        
         modeIcon.src = "ui/ldmodeicon.png"; // Dark mode icon
       } else {
         body.classList.remove('dark-mode');
@@ -337,7 +357,18 @@
         nav.classList.add('light-mode');
         signInBtn.classList.remove('dark-mode');
         signInBtn.classList.add('light-mode');
-        headerLogo.src = "ui/toplogolight.png";
+        
+        // Create new image and set it up before replacing the old one
+        const newLogo = new Image();
+        newLogo.src = "ui/toplogolight.png";
+        newLogo.alt = "Logo";
+        newLogo.className = "logo-image";
+        newLogo.id = "header-logo";
+        newLogo.onload = function() {
+          // Replace the old logo with the new one
+          headerLogo.parentNode.replaceChild(newLogo, headerLogo);
+        };
+        
         modeIcon.src = "ui/ldmodeiconlight.png"; // Light mode icon
       }
     }
